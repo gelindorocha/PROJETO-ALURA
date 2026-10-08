@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Protocolo IA: O Futuro</title>
+    <style>
+        :root {
+            --bg-cibernetico: #030708;
+            --bg-modulo: #0a1114;
+            --neon-verde: #00ff66;
+            --neon-verde-dim: rgba(0, 255, 102, 0.2);
+            --neon-alerta: #ff0055;
+            --texto-terminal: #adbfb5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-cibernetico);
+            color: var(--texto-terminal);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow: hidden;
+            /* Efeito de grade digital ao fundo */
+            background-image: 
+                linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Interface Principal estilo Módulo Sci-Fi */
+        .modulo-ia {
+            background-color: var(--bg-modulo);
+            max-width: 540px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 4px;
+            border: 2px solid var(--neon-verde);
+            box-shadow: 0 0 25px var(--neon-verde-dim), inset 0 0 15px rgba(0, 255, 102, 0.05);
+            position: relative;
+        }
+
+        /* Detalhes estéticos nos cantos para parecer tecnologia militar/Sci-Fi */
+        .modulo-ia::before {
+            content: "[SISTEMA ATIVO]";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-cibernetico);
+            padding: 0 8px;
+            font-size: 0.75rem;
+            color: var(--neon-verde);
+            letter-spacing: 2px;
+        }
+
+        .titulo-neon {
+            font-size: 1.7rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px var(--neon-verde);
+        }
+
+        .log-sistema {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 35px;
+            border-left: 3px solid var(--neon-verde-dim);
+            padding-left: 15px;
+        }
+
+        /* Container de Comando e Botões */
+        .painel-comandos {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        /* Estilização Avançada dos Botões */
+        .btn-ciber {
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 16px;
+            border: 1px solid var(--neon-verde);
+            background: rgba(0, 255, 102, 0.02);
+            color: var(--neon-verde);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            border-radius: 0px; /* Quadrados dão ar mais industrial/futurista */
+        }
+
+        /* Efeito de varredura de luz ao passar o mouse */
+        .btn-ciber::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.2), transparent);
+            transition: all 0.4s ease;
+        }
+
+        .btn-ciber:hover::after {
+            left: 100%;
+        }
+
+        .btn-ciber:hover {
+            background: var(--neon-verde);
+            color: var(--bg-cibernetico);
+            box-shadow: 0 0 15px var(--neon-verde);
+            transform: scale(1.02);
+        }
+
+        /* Botão Alternativo para gerar contraste */
+        .btn-ciber.alerta-borda {
+            border-color: var(--neon-alerta);
+            color: var(--neon-alerta);
+            background: rgba(255, 0, 85, 0.02);
+        }
+
+        .btn-ciber.alerta-borda:hover {
+            background: var(--neon-alerta);
+            color: #ffffff;
+            box-shadow: 0 0 15px var(--neon-alerta);
+        }
+
+        /* Terminal de Saída de Dados */
+        .terminal-status {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px dashed var(--neon-verde-dim);
+            padding: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Animações e estados disparados pelo JS */
+        .status-carregando {
+            animation: piscar 1s infinite alternate;
+        }
+
+        .saida-cautela {
+            color: var(--neon-alerta);
+            border-color: var(--neon-alerta);
+            text-shadow: 0 0 5px var(--neon-alerta);
+            animation: pulso-energia 0.3s ease-out;
+        }
+
+        .saida-sucesso {
+            color: var(--neon-verde);
+            border-color: var(--neon-verde);
+            text-shadow: 0 0 5px var(--neon-verde);
+            animation: pulso-energia 0.3s ease-out;
+        }
+
+        @keyframes piscar {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulso-energia {
+            0% { transform: scale(0.98); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .modulo-ia { padding: 30px 15px; }
+            .titulo-neon { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="modulo-ia">
+        <h1 class="titulo-neon">Diretriz da IA</h1>
+        
+        <p class="log-sistema">
+            > ASSIM QUE SAIU DA ESCOLA VOCÊ SE DEPARA COM UMA NOVA TECNOLOGIA. UM CHAT CAPAZ DE RESPONDER TODAS AS DÚVIDAS, GERAR IMAGENS E ÁUDIOS HIPER-REALISTAS. QUAL O SEU PROTOCOLO INICIAL?
+        </p>
+
+        <div class="painel-comandos">
+            <button class="btn-ciber alerta-borda" id="cmdScary">>> AMEDRONTADOR</button>
+            <button class="btn-ciber" id="cmdAmazing">>> REVOLUCIONÁRIO</button>
+        </div>
+
+        <div class="terminal-status status-carregando" id="displayTerminal">
+            [AGUARDANDO ENTRADA DE DADOS DO USUÁRIO...]
+        </div>
+    </main>
+
+    <script>
+        const displayTerminal = document.getElementById('displayTerminal');
+        const cmdScary = document.getElementById('cmdScary');
+        const cmdAmazing = document.getElementById('cmdAmazing');
+
+        function processarModoCautela() {
+            displayTerminal.textContent = '> PROTOCOLO DE CAUTELA ATIVADO. A IA DEVE SER MONITORADA COM MÁXIMA RESPONSABILIDADE E SEGURANÇA REFORÇADA.';
+            displayTerminal.className = 'terminal-status saida-cautela';
+        }
+
+        function processarModoEntusiasmo() {
+            displayTerminal.textContent = '> PROTOCOLO DE EXPANSÃO INTERMEDIADO. EVOLUÇÃO TECNOLÓGICA CONFIRMADA. NOVAS POSSIBILIDADES OPERACIONAIS DESTRANCADAS.';
+            displayTerminal.className = 'terminal-status saida-sucesso';
+        }
+
+        cmdScary.addEventListener('click', processarModoCautela);
+        cmdAmazing.addEventListener('click', processarModoEntusiasmo);
+    </script>
+
+</body>
+</html>
